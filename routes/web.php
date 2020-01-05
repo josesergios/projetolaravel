@@ -16,5 +16,14 @@ Route::get('/', function () {
 });
 
 Route::get('/teste', function(){
-    return "Olá";
+    return "Olá! Seja bem vindo!";
 });
+
+Route::get('/{nome}', function($nome){
+    return "Olá! Seja bem vindo, " . $nome . "!";
+});
+
+Route::get('/rotacomregras/{nome}/{n}', function($nome, $n){
+    for($i = 0; $i<$n; $i++)
+        echo "olá, seja bem vindo, $nome! <br>";
+})->where('nome','[A-Za-z]+')->where('n','[0-9]+'); //regras para rota
