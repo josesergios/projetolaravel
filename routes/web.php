@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
 });
 
 Route::get('/teste', function(){
@@ -27,3 +27,17 @@ Route::get('/rotacomregras/{nome}/{n}', function($nome, $n){
     for($i = 0; $i<$n; $i++)
         echo "olá, seja bem vindo, $nome! <br>";
 })->where('nome','[A-Za-z]+')->where('n','[0-9]+'); //regras para rota
+
+Route::prefix('/app')->group(function(){
+    Route::get('/', function(){
+        return view ("app");
+    })->name('app');
+    
+    Route::get('/user', function(){
+        return view ("User");
+    })->name('app.user');
+
+    Route::get('/profile', function(){
+        return view ("Profile");
+    })->name('app.profile');
+});
