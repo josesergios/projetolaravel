@@ -57,3 +57,4 @@ Route::get('/produtos', function() {
 Route::post('/requisicoes', function(Request $request) {
     return "Hello POST";
 });
+///////
