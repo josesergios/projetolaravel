@@ -11,12 +11,12 @@
 |
 */
 use Illuminate\Http\Request;
-/* //testes de rota
+ //testes de rota
 Route::get('/', function () {
-    return view('app');
+    return view('welcome');
 });
 
-Route::get('/teste', function(){
+/*Route::get('/teste', function(){
     return "Olá! Seja bem vindo!";
 });
 
