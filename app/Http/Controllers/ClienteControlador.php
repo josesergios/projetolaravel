@@ -15,6 +15,13 @@ class ClienteControlador extends Controller
 
     ];
 
+    public function __construct() {
+        $clientes = session('clientes');
+        if (!isset($clientes))
+            session(['clientes' => $this->clientes]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +29,7 @@ class ClienteControlador extends Controller
      */
     public function index()
     {
-        $clientes = $this->clientes;
+        $clientes = session('clientes');
         return view('clientes.index', compact(['clientes']));
     }
 
@@ -44,13 +51,16 @@ class ClienteControlador extends Controller
      */
     public function store(Request $request)
     {
-        $id = count($this->clientes) + 1;
+        $clientes = session('clientes');
+        $id = count($clientes) + 1;
         $nome = $request->nome;
         $dados = ['id'=>$id, "nome"=>$nome];
-        $this->clientes[] = $dados; 
-        #dd($this->clientes);
-
+        $clientes[] = $dados; 
+        session(['clientes' => $clientes]);
         return redirect()->route('clientes.index');
+        /*$clientes = $this->clientes;
+        return view('clientes.index', compact(['clientes']));
+        */
     }
 
     /**
@@ -60,8 +70,10 @@ class ClienteControlador extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    { 
+        $clientes = session('clientes');
+        $cliente = $clientes[ $id - 1];
+        return view('clientes.info', compact(['cliente']));
     }
 
     /**
@@ -72,7 +84,10 @@ class ClienteControlador extends Controller
      */
     public function edit($id)
     {
-        //
+        $clientes = session('clientes');
+        $cliente = $clientes[ $id - 1];
+        return view('clientes.edit', compact(['cliente']));
+        
     }
 
     /**
@@ -84,7 +99,10 @@ class ClienteControlador extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $clientes = session('clientes');
+        $clientes[ $id - 1]['nome'] = $request->nome; 
+        session(['clientes'=>$clientes]);
+        return redirect()->route('clientes.index');
     }
 
     /**
