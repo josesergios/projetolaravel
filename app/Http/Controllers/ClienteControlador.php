@@ -30,7 +30,8 @@ class ClienteControlador extends Controller
     public function index()
     {
         $clientes = session('clientes');
-        return view('clientes.index', compact(['clientes']));
+        $titulo = "Todos os clientes";
+        return view('clientes.index', compact(['clientes', 'titulo']));
     }
 
     /**
